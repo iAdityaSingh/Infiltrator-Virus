@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Lab: demo (40s + analysis)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "args": ["demo"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Lab: demo with jitter 0.4",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "args": ["demo", "--jitter", "0.4"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

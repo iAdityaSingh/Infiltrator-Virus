@@ -1,0 +1,6 @@
+logs/
+outbox/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/

@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest>=8
+pyyaml>=6
+yara-python>=4.5

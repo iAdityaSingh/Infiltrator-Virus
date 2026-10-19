@@ -1,0 +1,44 @@
+title: Outbound SMTP From Script Runtime Or Non-Mail Process
+id: 3b0f7a52-5d0e-4f4e-9a52-1c8e6f0d2a77
+status: experimental
+description: >
+    Detects network connections to common SMTP ports from scripting runtimes.
+    Mail should come from mail clients or servers; a script doing it can be
+    automated exfiltration over an alternative protocol. The lab sink on port 1025
+    will trigger this rule because Sysmon logs loopback connections.
+references:
+    - https://attack.mitre.org/techniques/T1048/003/
+author: Infiltrator Lab
+date: 2026-10-12
+logsource:
+    category: network_connection
+    product: windows
+detection:
+    selection:
+        Initiated: 'true'
+        DestinationPort:
+            - 25
+            - 465
+            - 587
+            - 1025
+            - 2525
+        Image|endswith:
+            - '\python.exe'
+            - '\pythonw.exe'
+            - '\node.exe'
+            - '\powershell.exe'
+            - '\wscript.exe'
+            - '\cscript.exe'
+    condition: selection
+fields:
+    - Image
+    - CommandLine
+    - DestinationIp
+    - DestinationPort
+falsepositives:
+    - Legitimate automation scripts that send alert emails (allow-list by script path or host)
+level: medium
+tags:
+    - attack.exfiltration
+    - attack.t1048.003
+    - attack.t1020

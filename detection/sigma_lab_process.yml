@@ -1,0 +1,29 @@
+title: Infiltrator Lab Python Process Started
+id: 9d2c4e18-7a61-4b0c-8f35-2e4a1b6c9d03
+status: experimental
+description: Lab-specific rule used to practise process-creation detections. Reference only.
+author: Infiltrator Lab
+date: 2026-10-12
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_image:
+        Image|endswith:
+            - '\python.exe'
+            - '\pythonw.exe'
+    selection_cmd:
+        CommandLine|contains|all:
+            - 'main.py'
+            - 'infiltrator-lab'
+    condition: selection_image and selection_cmd
+fields:
+    - Image
+    - CommandLine
+    - ParentImage
+falsepositives:
+    - Authorised training runs of this lab
+level: informational
+tags:
+    - attack.execution
+    - attack.t1059.006
